@@ -1,0 +1,101 @@
+name: Comprobar las webs de clase
+
+# Cada noche abre las tres webs (automatismos, domotica, maquinas) con Chrome, en escritorio y móvil,
+# en claro y en oscuro. Si hay errores o alguna página se ve distinta que la última vez, abre una incidencia.
+
+on:
+  schedule:
+    - cron: '23 4 * * *'        # todos los días a las 4:23 UTC (5:23 en invierno y 6:23 en verano, hora de España)
+  workflow_dispatch:
+    inputs:
+      solo_referencia:
+        description: 'Solo guardar las capturas de hoy como referencia (no abre incidencia)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: comprobar
+  cancel-in-progress: false
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Preparar Chrome, Playwright y la letra
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet playwright==1.63.0 pillow numpy
+          "$RUNNER_TEMP/venv/bin/playwright" install --with-deps chromium
+          npm install --silent --prefix "$RUNNER_TEMP/letra" @fontsource/atkinson-hyperlegible@5
+
+      - name: Traer las tres webs
+        run: |
+          for w in automatismos domotica maquinas; do
+            git clone --quiet --depth 1 "https://github.com/BernardoTorio/$w" "$RUNNER_TEMP/webs/$w"
+          done
+
+      - name: Recuperar las capturas de la última vez
+        uses: actions/cache/restore@v6
+        with:
+          path: referencias
+          key: referencias-${{ github.run_id }}
+          restore-keys: referencias-
+
+      - name: Comprobar
+        id: noche
+        run: |
+          "$RUNNER_TEMP/venv/bin/python" noche.py --webs "$RUNNER_TEMP/webs" --refs referencias --salida "$RUNNER_TEMP/salida" \
+            --fuentes "$RUNNER_TEMP/letra/node_modules/@fontsource/atkinson-hyperlegible/files" \
+            --url-repo "${{ github.server_url }}/${{ github.repository }}" \
+            --url-run "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Guardar las capturas de hoy como referencia
+        if: always() && steps.noche.outcome == 'success'
+        uses: actions/cache/save@v6
+        with:
+          path: referencias
+          key: referencias-${{ github.run_id }}
+
+      - name: Guardar informes, hojas e imágenes de los cambios
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: comprobacion
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/salida/*.md
+            ${{ runner.temp }}/salida/*.log
+            ${{ runner.temp }}/salida/*/informe.*
+            ${{ runner.temp }}/salida/*/hojas
+            ${{ runner.temp }}/salida/*/cambios
+
+      - name: Anotar el resultado en el repositorio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add informes cambios 2>/dev/null || git add informes
+          git commit --quiet -m "Comprobación del $(date -u +%d/%m/%Y)" || echo "Nada que anotar"
+          git pull --quiet --rebase origin "${{ github.ref_name }}"
+          git push --quiet
+
+      - name: Abrir la incidencia si hay novedades
+        if: steps.noche.outputs.novedades == 'true' && inputs.solo_referencia != true
+        run: |
+          gh label create aviso --color D93F0B --description "Aviso de la comprobación de cada noche" --force
+          for n in $(gh issue list --label aviso --state open --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "Sustituida por la comprobación de hoy."
+          done
+          gh issue create --label aviso --title "$(cat "$RUNNER_TEMP/salida/titulo.txt")" --body-file "$RUNNER_TEMP/salida/aviso.md"
+
+      - name: Marcar el fallo si alguna web no se ha podido comprobar
+        if: steps.noche.outputs.fallo == 'true'
+        run: exit 1
