@@ -1,6 +1,6 @@
 # Comprobación de «automatismos»
 
-23/11/2026 18:31 · 50 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
+23/11/2026 22:09 · 50 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
 
 **0 errores · 4 avisos · 0 páginas con cambios de aspecto**
 
@@ -22,7 +22,6 @@ Ninguna página se ve distinta que antes.
 ## Para saber
 
 - Páginas sin enlace desde la portada (normal si están escondidas o solo redirigen): test_repaso.html
-- No había capturas de referencia: se guardan las de hoy y no se compara nada.
 - `test_repaso.html`: redirige a index.html#tests
 
 ## Hojas de contacto (para mirarlas)
