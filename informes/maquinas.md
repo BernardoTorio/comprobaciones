@@ -1,6 +1,6 @@
 # Comprobación de «maquinas»
 
-23/11/2026 22:08 · 41 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
+24/11/2026 09:01 · 41 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
 
 **0 errores · 0 avisos · 0 páginas con cambios de aspecto**
 

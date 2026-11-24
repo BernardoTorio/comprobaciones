@@ -1,4 +1,4 @@
-# Última comprobación: 23/11/2026 23:04
+# Última comprobación: 24/11/2026 09:57
 
 | Web | Errores | Avisos | Páginas que han cambiado |
 |---|---|---|---|
@@ -6,4 +6,4 @@
 | domotica | 0 | 0 | 0 de 14 |
 | maquinas | 0 | 0 | 0 de 41 |
 
-[Ver la ejecución](https://github.com/BernardoTorio/comprobaciones/actions/runs/45275895255)
+[Ver la ejecución](https://github.com/BernardoTorio/comprobaciones/actions/runs/45360475183)
