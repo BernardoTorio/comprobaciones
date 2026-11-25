@@ -1,8 +1,8 @@
 # Comprobación de «maquinas»
 
-24/11/2026 15:06 · 41 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
+25/11/2026 14:46 · 41 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
 
-**0 errores · 0 avisos · 0 páginas con cambios de aspecto**
+**0 errores · 0 avisos · 3 páginas con cambios de aspecto**
 
 ## Errores
 
@@ -14,7 +14,9 @@ Ninguno.
 
 ## Cambios de aspecto
 
-Ninguna página se ve distinta que antes.
+- `dev_conc_grupos.html`: cambia en escritorio-claro (18,6 %), movil-claro (30,5 %), escritorio-oscuro (20,9 %), movil-oscuro (26,0 %) · cambios/dev_conc_grupos__escritorio-claro.png · cambios/dev_conc_grupos__movil-claro.png
+- `dev_imb1_bobinas.html`: cambia en escritorio-claro (15,7 %), movil-claro (20,3 %), escritorio-oscuro (17,6 %), movil-oscuro (19,5 %) · cambios/dev_imb1_bobinas__escritorio-claro.png · cambios/dev_imb1_bobinas__movil-claro.png
+- `dev_imb2_bobinas.html`: cambia en escritorio-claro (16,8 %), movil-claro (32,8 %), escritorio-oscuro (19,0 %), movil-oscuro (26,9 %) · cambios/dev_imb2_bobinas__escritorio-claro.png · cambios/dev_imb2_bobinas__movil-claro.png
 
 ## Para saber
 
