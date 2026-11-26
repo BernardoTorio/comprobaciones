@@ -1,6 +1,6 @@
 # Comprobación de «domotica»
 
-25/11/2026 14:44 · 14 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
+26/11/2026 14:08 · 14 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
 
 **0 errores · 0 avisos · 0 páginas con cambios de aspecto**
 
