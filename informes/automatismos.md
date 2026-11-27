@@ -1,6 +1,6 @@
 # Comprobación de «automatismos»
 
-26/11/2026 14:11 · 50 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
+27/11/2026 14:08 · 50 páginas × 4 variantes (escritorio-claro, movil-claro, escritorio-oscuro, movil-oscuro)
 
 **0 errores · 4 avisos · 0 páginas con cambios de aspecto**
 
